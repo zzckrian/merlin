@@ -56,7 +56,7 @@ class Bot(BotBase):
             field = [("TOGI", "F", False),
                      ("CLIENT.ON EVERY TEXT", "KEBIASAAN TOGI", False),
                      ("YOI GAK BRO", "YOI", False)]
-            #embed.set_footer(text="HH KAWOKAWOKAW")
+            embed.set_footer(text="HH KAWOKAWOKAW")
             for name, value, inline in field:
                 embed.add_field(name=name, value=value, inline=inline)
             await channel.send(embed=embed)
