@@ -4,6 +4,9 @@ from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound
+
+from ..db import db
+
 PREFIX = "2"
 OWNER_IDS = [503052622438334485]
 
@@ -14,6 +17,7 @@ class Bot(BotBase):
         self.guild = None
         self.scheduler = AsyncIOScheduler()
 
+        db.autosave(self.scheduler)
         super().__init__(
             command_prefix=PREFIX,
             owner_ids=OWNER_IDS,
