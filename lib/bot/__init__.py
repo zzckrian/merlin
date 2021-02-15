@@ -12,6 +12,7 @@ PREFIX = "2"
 OWNER_IDS = [503052622438334485]
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
+
 class Bot(BotBase):
     def __init__(self):
         self.PREFIX = PREFIX
@@ -25,7 +26,6 @@ class Bot(BotBase):
             owner_ids=OWNER_IDS,
             intents=Intents.all(),
         )
-
 
     def setup(self):
         for cog in COGS:
@@ -47,7 +47,6 @@ class Bot(BotBase):
 
     async def rules_reminder(self):
         self.stdout.channel.send("Rules: bebas anjing")
-
 
     async def on_connect(self):
         print("Ngontol")
@@ -85,19 +84,19 @@ class Bot(BotBase):
 
             await self.stdout.send("bot jalan")
 
-#            embed = Embed(title="DEATH NOTE", description="11/02/21", color=0xff0963, timestamp=datetime.utcnow())
-#            field = [("TOGI DI BAN", "REASON : MUKA LO PG", False),
-#                     ("CLIENT.ON EVERY TEXT", "KEBIASAAN TOGI", False),
-#                     ("YOI GAK BRO", "YOI", False)]
-#            for name, value, inline in field:
-#                embed.add_field(name=name, value=value, inline=inline)
-#            embed.set_footer(text="^^^ TOGI KAWOKAWOKAW")
-#            embed.set_author(name="<-- Togi", icon_url="https://imgur.com/kINAlvJ.png")
-#            embed.set_thumbnail(url=self.guild.icon_url)
-#            embed.set_image(url="https://imgur.com/kINAlvJ.png")
+        #            embed = Embed(title="DEATH NOTE", description="11/02/21", color=0xff0963, timestamp=datetime.utcnow())
+        #            field = [("TOGI DI BAN", "REASON : MUKA LO PG", False),
+        #                     ("CLIENT.ON EVERY TEXT", "KEBIASAAN TOGI", False),
+        #                     ("YOI GAK BRO", "YOI", False)]
+        #            for name, value, inline in field:
+        #                embed.add_field(name=name, value=value, inline=inline)
+        #            embed.set_footer(text="^^^ TOGI KAWOKAWOKAW")
+        #            embed.set_author(name="<-- Togi", icon_url="https://imgur.com/kINAlvJ.png")
+        #            embed.set_thumbnail(url=self.guild.icon_url)
+        #            embed.set_image(url="https://imgur.com/kINAlvJ.png")
 
-#            await channel.send(embed=embed)
-#            await channel.send(file=File("./data/togi.png"))
+        #            await channel.send(embed=embed)
+        #            await channel.send(file=File("./data/togi.png"))
         else:
             print("Bot Reconnected")
 
