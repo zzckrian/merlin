@@ -4,11 +4,11 @@ from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound
-
 from ..db import db
 
 PREFIX = "2"
 OWNER_IDS = [503052622438334485]
+
 
 class Bot(BotBase):
     def __init__(self):
@@ -17,12 +17,13 @@ class Bot(BotBase):
         self.guild = None
         self.scheduler = AsyncIOScheduler()
 
-        db.autosave(self.scheduler)
+        db.autosavebro(self.scheduler)
         super().__init__(
             command_prefix=PREFIX,
             owner_ids=OWNER_IDS,
             intents=Intents.all(),
         )
+
     def run(self, version):
         self.VERSION = version
 
@@ -61,6 +62,7 @@ class Bot(BotBase):
         if not self.ready:
             self.ready = True
             self.guild = self.get_guild(776108158891982889)
+            self.scheduler.start()
             print("bot ready")
 
             channel = self.get_channel(808223116126846986)
@@ -84,5 +86,6 @@ class Bot(BotBase):
 
     async def on_message(self, message):
         pass
+
 
 bot = Bot()
