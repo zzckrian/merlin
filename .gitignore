@@ -1,6 +1,9 @@
+#ngaco lo
 .db
 .db-journal
 lib/bot/token.0
+/data/db/database.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -129,3 +132,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/.idea/.gitignore
+/.idea/discord-bot.iml
+/data/GTASAsf1.b
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/data/togi.png
+/.idea/vcs.xml
