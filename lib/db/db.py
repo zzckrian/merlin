@@ -24,7 +24,6 @@ def build():
 
 
 def commit():
-    print("commiting..")
     cxn.commit()
 
 
