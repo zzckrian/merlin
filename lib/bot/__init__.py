@@ -9,7 +9,7 @@ from discord.ext.commands import CommandNotFound
 from apscheduler.triggers.cron import CronTrigger
 from ..db import db
 
-PREFIX = "2"
+PREFIX = "-"
 OWNER_IDS = [503052622438334485]
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
@@ -120,7 +120,7 @@ class Bot(BotBase):
             print("Bot Reconnected")
 
     async def on_message(self, message):
-        pass
-
+        if not message.author.bot:
+            await self.process_commands(message)
 
 bot = Bot()
