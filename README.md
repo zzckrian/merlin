@@ -1,10 +1,11 @@
-# A Simple Discord Bot Written in Python 3.9
-_Still under development, do not clone/fork this repository._
+# Merlin Discord Bot Written in Python 3.9
+_Still under development, do not clone/fork this repository, stay tune._
 
 ### Feature :
-`1. Music maybe?`
+`1. Fun`
 
-`2. Moderation`
+`2. Music maybe?`
 
-`3. And more soon.`
+`3. Moderation`
 
+`4. And more soon.`
