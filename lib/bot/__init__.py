@@ -1,8 +1,7 @@
 from asyncio import sleep
 from datetime import datetime
 from glob import glob
-from discord import Intents
-from discord import Embed, File
+from discord import Embed, File, Intents
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound
@@ -21,7 +20,7 @@ class Ready(object):
 
     def ready_up(self, cog):
         setattr(self, cog, True)
-        print(f"{cog} cog jalan")
+        print(f"{cog} cog jalan (init)")
 
     def all_ready(self):
         return all([getattr(self, cog) for cog in COGS])
@@ -45,14 +44,24 @@ class Bot(BotBase):
     def setup(self):
         for cog in COGS:
             self.load_extension(f"lib.cogs.{cog}")
-            print(f" {cog} cog loaded yh")
 
-        print("setup complete")
+        print("Starting..")
 
     def run(self, version):
         self.VERSION = version
 
-        print("running setup..")
+        print("  /$$      /$$ /$$$$$$$$ /$$$$$$$  /$$       /$$$$$$ /$$   /$$"
+              "\n| $$$    /$$$| $$_____/| $$__  $$| $$      |_  $$_/| $$$ | $$"
+              "\n| $$$$  /$$$$| $$      | $$  \ $$| $$        | $$  | $$$$| $$"
+              "\n| $$ $$/$$ $$| $$$$$   | $$$$$$$/| $$        | $$  | $$ $$ $$"
+              "\n| $$  $$$| $$| $$__/   | $$__  $$| $$        | $$  | $$  $$$$"
+              "\n| $$\  $ | $$| $$      | $$  \ $$| $$        | $$  | $$\  $$$"
+              "\n| $$ \/  | $$| $$$$$$$$| $$  | $$| $$$$$$$$ /$$$$$$| $$ \  $$"
+              "\n|__/     |__/|________/|__/  |__/|________/|______/|__/  \__/"
+
+              "\n         MERLIN DISCORD BOT, WRITTEN IN PYTHON 3.9"
+              "\n                github.com/zzckrian/merlin"
+              "\n      © 2021 zzckrian. See LICENSE.md for more info.")
         self.setup()
 
         with open("./lib/bot/token.0", "r", encoding="utf-8") as tf:
@@ -64,10 +73,10 @@ class Bot(BotBase):
         self.stdout.channel.send("Rules: bebas anjing")
 
     async def on_connect(self):
-        print("Ngontol")
+        print("Bot Connected")
 
     async def on_disconnect(self):
-        print('awakoawk crash')
+        print('Bot Disconected')
 
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
@@ -82,9 +91,6 @@ class Bot(BotBase):
         if isinstance(exc, CommandNotFound):
             await ctx.send("Ngomong nn tuh")
 
-        elif hasattr(exc, "original"):
-            raise exc.original
-
         else:
             raise exc
 
@@ -95,13 +101,17 @@ class Bot(BotBase):
             self.scheduler.start()
             self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
 
+            # STATUS
+            import discord
+            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="XVIDEOS"))
+
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
 
             self.ready = True
-            print("bot ready")
+            print("Bot Ready")
 
-            await self.stdout.send("bot jalan")
+            await self.stdout.send("Bot jalan")
 
         #            embed = Embed(title="DEATH NOTE", description="11/02/21", color=0xff0963, timestamp=datetime.utcnow())
         #            field = [("TOGI DI BAN", "REASON : MUKA LO PG", False),
@@ -122,5 +132,6 @@ class Bot(BotBase):
     async def on_message(self, message):
         if not message.author.bot:
             await self.process_commands(message)
+
 
 bot = Bot()
