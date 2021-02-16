@@ -1,3 +1,4 @@
+from asyncio import sleep
 from datetime import datetime
 from glob import glob
 from discord import Intents
@@ -13,10 +14,24 @@ OWNER_IDS = [503052622438334485]
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
 
+class Ready(object):
+    def __init__(self):
+        for cog in COGS:
+            setattr(self, cog, False)
+
+    def ready_up(self, cog):
+        setattr(self, cog, True)
+        print(f"{cog} cog jalan")
+
+    def all_ready(self):
+        return all([getattr(self, cog) for cog in COGS])
+
+
 class Bot(BotBase):
     def __init__(self):
         self.PREFIX = PREFIX
         self.ready = False
+        self.cogs_ready = Ready()
         self.guild = None
         self.scheduler = AsyncIOScheduler()
 
@@ -75,11 +90,15 @@ class Bot(BotBase):
 
     async def on_ready(self):
         if not self.ready:
-            self.ready = True
             self.guild = self.get_guild(776108158891982889)
             self.stdout = self.get_channel(808223116126846986)
             self.scheduler.start()
             self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
+
+            while not self.cogs_ready.all_ready():
+                await sleep(0.5)
+
+            self.ready = True
             print("bot ready")
 
             await self.stdout.send("bot jalan")
