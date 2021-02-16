@@ -46,6 +46,7 @@ class Bot(BotBase):
             self.load_extension(f"lib.cogs.{cog}")
 
         print("Starting..")
+        print("Loading COGS")
 
     def run(self, version):
         self.VERSION = version
@@ -70,7 +71,10 @@ class Bot(BotBase):
         super().run(self.TOKEN, reconnect=True)
 
     async def rules_reminder(self):
-        self.stdout.channel.send("Rules: bebas anjing")
+        self.stdout.send("Rules: bebas anjing")
+
+    async def pengingat_sholat(self):
+        await self.get_channel(801483230598922261).send("Sholat isya dlu bg")
 
     async def on_connect(self):
         print("Bot Connected")
@@ -100,10 +104,11 @@ class Bot(BotBase):
             self.stdout = self.get_channel(808223116126846986)
             self.scheduler.start()
             self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
+            self.scheduler.add_job(self.pengingat_sholat, CronTrigger(hour=19, minute=37, second=0))
 
             # STATUS
             import discord
-            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="XVIDEOS"))
+            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Ar-Rahman"))
 
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
