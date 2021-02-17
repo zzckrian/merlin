@@ -141,3 +141,4 @@ dmypy.json
 /.idea/inspectionProfiles/Project_Default.xml
 /data/togi.png
 /.idea/vcs.xml
+/lib/bot/token.0
