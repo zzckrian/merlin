@@ -1,10 +1,12 @@
 from asyncio import sleep
 from datetime import datetime
 from glob import glob
+
+import discord
 from discord import Embed, File, Intents
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
-from discord.ext.commands import CommandNotFound
+from discord.ext.commands import CommandNotFound, Context
 from apscheduler.triggers.cron import CronTrigger
 from ..db import db
 
@@ -70,6 +72,16 @@ class Bot(BotBase):
         print("Running bot")
         super().run(self.TOKEN, reconnect=True)
 
+
+    async def process_commands(self, message):
+        ctx = await self.get_context(message, cls = Context)
+
+        if ctx.command is not None and ctx.guild is not None:
+            if self.ready:
+                await self.invoke(ctx)
+            else:
+                await ctx.send("Saya belum siap menerima perintah, tunggu beberapa saat.")
+
     async def rules_reminder(self):
         self.stdout.send("Rules: bebas anjing")
 
@@ -87,7 +99,7 @@ class Bot(BotBase):
             await args[0].send("Something went wrong")
 
         else:
-            self.stdout.send("Akwokwaokaw error mampus.")
+            self.stdout.send("Akwokwaokaw error.")
 
         raise
 
@@ -106,17 +118,6 @@ class Bot(BotBase):
             self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
             self.scheduler.add_job(self.pengingat_sholat, CronTrigger(hour=19, minute=37, second=0))
 
-            # STATUS
-            import discord
-            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Ar-Rahman"))
-
-            while not self.cogs_ready.all_ready():
-                await sleep(0.5)
-
-            self.ready = True
-            print("Bot Ready")
-
-            await self.stdout.send("Bot jalan")
 
         #            embed = Embed(title="DEATH NOTE", description="11/02/21", color=0xff0963, timestamp=datetime.utcnow())
         #            field = [("TOGI DI BAN", "REASON : MUKA LO PG", False),
@@ -131,8 +132,19 @@ class Bot(BotBase):
 
         #            await channel.send(embed=embed)
         #            await channel.send(file=File("./data/togi.png"))
+
+            while not self.cogs_ready.all_ready():
+                await sleep(0.5)
+
+            await self.stdout.send("Bot jalan")
+            self.ready = True
+            print("Bot Ready")
+
         else:
             print("Bot Reconnected")
+
+        # STATUS
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Ar-Rahman"))
 
     async def on_message(self, message):
         if not message.author.bot:
