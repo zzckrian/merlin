@@ -1,8 +1,8 @@
 #ngaco lo
 .db
 .db-journal
-lib/bot/token.0
 /data/db/database.db
+/lib/bot/token.0
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
