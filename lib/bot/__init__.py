@@ -1,9 +1,7 @@
 from asyncio import sleep
 from datetime import datetime
 from glob import glob
-
-import discord
-from discord import Embed, File, Intents
+from discord import Embed, File, Intents, Activity, ActivityType
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound, Context
@@ -72,9 +70,8 @@ class Bot(BotBase):
         print("Running bot")
         super().run(self.TOKEN, reconnect=True)
 
-
     async def process_commands(self, message):
-        ctx = await self.get_context(message, cls = Context)
+        ctx = await self.get_context(message, cls=Context)
 
         if ctx.command is not None and ctx.guild is not None:
             if self.ready:
@@ -118,20 +115,19 @@ class Bot(BotBase):
             self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
             self.scheduler.add_job(self.pengingat_sholat, CronTrigger(hour=19, minute=37, second=0))
 
+            #            embed = Embed(title="DEATH NOTE", description="11/02/21", color=0xff0963, timestamp=datetime.utcnow())
+            #            field = [("TOGI DI BAN", "REASON : MUKA LO PG", False),
+            #                     ("CLIENT.ON EVERY TEXT", "KEBIASAAN TOGI", False),
+            #                     ("YOI GAK BRO", "YOI", False)]
+            #            for name, value, inline in field:
+            #                embed.add_field(name=name, value=value, inline=inline)
+            #            embed.set_footer(text="^^^ TOGI KAWOKAWOKAW")
+            #            embed.set_author(name="<-- Togi", icon_url="https://imgur.com/kINAlvJ.png")
+            #            embed.set_thumbnail(url=self.guild.icon_url)
+            #            embed.set_image(url="https://imgur.com/kINAlvJ.png")
 
-        #            embed = Embed(title="DEATH NOTE", description="11/02/21", color=0xff0963, timestamp=datetime.utcnow())
-        #            field = [("TOGI DI BAN", "REASON : MUKA LO PG", False),
-        #                     ("CLIENT.ON EVERY TEXT", "KEBIASAAN TOGI", False),
-        #                     ("YOI GAK BRO", "YOI", False)]
-        #            for name, value, inline in field:
-        #                embed.add_field(name=name, value=value, inline=inline)
-        #            embed.set_footer(text="^^^ TOGI KAWOKAWOKAW")
-        #            embed.set_author(name="<-- Togi", icon_url="https://imgur.com/kINAlvJ.png")
-        #            embed.set_thumbnail(url=self.guild.icon_url)
-        #            embed.set_image(url="https://imgur.com/kINAlvJ.png")
-
-        #            await channel.send(embed=embed)
-        #            await channel.send(file=File("./data/togi.png"))
+            #            await channel.send(embed=embed)
+            #            await channel.send(file=File("./data/togi.png"))
 
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
@@ -144,14 +140,13 @@ class Bot(BotBase):
             print("Bot Reconnected")
 
         # STATUS
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Ar-Rahman"))
+        await bot.change_presence(activity=Activity(type=ActivityType.listening, name="Ar-Rahman"))
         await sleep(10)
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
+        await bot.change_presence(activity=Activity(type=ActivityType.watching, name="you"))
         await sleep(10)
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="do you know how to make bot?"))
+        await bot.change_presence(activity=Activity(type=ActivityType.playing, name="do you know how to make bot?"))
         await sleep(10)
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="how to make bot in discord"))
-
+        await bot.change_presence(activity=Activity(type=ActivityType.watching, name="how to make bot in discord"))
 
     async def on_message(self, message):
         if not message.author.bot:
