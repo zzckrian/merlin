@@ -8,7 +8,7 @@ from discord.ext.commands import CommandNotFound, Context
 from apscheduler.triggers.cron import CronTrigger
 from ..db import db
 
-PREFIX = "-"
+PREFIX = "."
 OWNER_IDS = [503052622438334485]
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
