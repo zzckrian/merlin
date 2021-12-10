@@ -3,3 +3,5 @@ discord~=1.0.1
 discord.py
 aiosqlite
 git+https://github.com/Rapptz/discord-ext-menus
+
+aiohttp~=3.7.4.post0
