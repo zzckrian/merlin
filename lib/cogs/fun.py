@@ -31,7 +31,7 @@ class Fun(Cog):
 
     # SLAP COMMAND
     @command(name="slap", aliases=["tenggeul"])
-    async def slap_member(self, ctx, member: Member, *, reason: Optional[str] = "no reason"):
+    async def slap_member(self, ctx, member: Member, *, reason: Optional[str] = "teu jelas"):
         await ctx.send(f"{ctx.author.mention} nyabok {member.mention} pedah {reason}!")
 
     # SAY COMMAND
