@@ -116,18 +116,18 @@ class Bot(BotBase):
             self.scheduler.add_job(self.pengingat_sholat, CronTrigger(hour=19, minute=37, second=0))
 
             #            embed = Embed(title="DEATH NOTE", description="11/02/21", color=0xff0963, timestamp=datetime.utcnow())
-            #            field = [("TOGI DI BAN", "REASON : MUKA LO PG", False),
-            #                     ("CLIENT.ON EVERY TEXT", "KEBIASAAN TOGI", False),
+            #            field = [("X", "REASON : x", False),
+            #                     ("CLIENT.ON EVERY TEXT", "x", False),
             #                     ("YOI GAK BRO", "YOI", False)]
             #            for name, value, inline in field:
             #                embed.add_field(name=name, value=value, inline=inline)
-            #            embed.set_footer(text="^^^ TOGI KAWOKAWOKAW")
-            #            embed.set_author(name="<-- Togi", icon_url="https://imgur.com/kINAlvJ.png")
+            #            embed.set_footer(text="^^^ x")
+            #            embed.set_author(name="<-- Togi", icon_url="x")
             #            embed.set_thumbnail(url=self.guild.icon_url)
-            #            embed.set_image(url="https://imgur.com/kINAlvJ.png")
+            #            embed.set_image(url="x")
 
             #            await channel.send(embed=embed)
-            #            await channel.send(file=File("./data/togi.png"))
+            #            await channel.send(file=File("./data/x.png"))
 
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
@@ -147,6 +147,7 @@ class Bot(BotBase):
         await bot.change_presence(activity=Activity(type=ActivityType.playing, name="do you know how to make bot?"))
         await sleep(10)
         await bot.change_presence(activity=Activity(type=ActivityType.watching, name="how to make bot in discord"))
+
 
     async def on_message(self, message):
         if not message.author.bot:
